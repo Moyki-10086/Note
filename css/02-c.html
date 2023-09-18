@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <!-- 4.双飞翼布局 -->
+  <style>
+    .parent {
+      /* 确保中间内容可以显示出来，两倍left宽+right宽 */
+      min-width: 600px;
+      height: 300px;
+      background: pink;
+    }
+
+    .middle {
+      float: left;
+      width: 100%;
+      height: 300px;
+      background-color: #f1c4cd;
+    }
+
+    .middle .inner {
+      /* 为左右栏腾出空间 */
+      margin: 0 200px;
+    }
+
+    .left {
+      float: left;
+      width: 200px;
+      height: 300px;
+      margin-left: -100%;
+      background-color: #add5a2;
+
+    }
+
+    .right {
+      float: left;
+      width: 200px;
+      height: 300px;
+      margin-left: -200px;
+      background-color: #f9cb8b;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="parent">
+    <div class="middle">
+      <div class="inner">中间自适应</div>
+    </div>
+    <div class="left">
+      left
+    </div>
+    <div class="right">
+      right
+    </div>
+  </div>
+</body>
+
+</html>
