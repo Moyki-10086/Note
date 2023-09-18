@@ -13,7 +13,7 @@
     @update:foo="foo = 事件参数" -- 自定义事件
 
 
-#### 父组件：
+##### 父组件：
   <template>
       <child-vue 
      v-model='message'
@@ -34,7 +34,7 @@
       }
   </script>
 
-#### 子组件：
+##### 子组件：
  <template>
     <div> {{value}}</div>
     <div> {{foo}}</div>
