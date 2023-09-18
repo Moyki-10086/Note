@@ -1,5 +1,5 @@
 
-####  .sync修饰符
+##  .sync修饰符
 * .sync修饰符 是一个语法糖 ，用于实现父子组件之间双向绑定，实现多个数据同步。与 v-model类似
 
 * 使用建议 ：优先使用v-model，多个数据时，最主要的数据使用v-model指令,其他数据使用.sync修饰符
@@ -13,7 +13,7 @@
     @update:foo="foo = 事件参数" -- 自定义事件
 
 
-# 父组件：
+#### 父组件：
   <template>
       <child-vue 
      v-model='message'
@@ -34,7 +34,7 @@
       }
   </script>
 
-# 子组件：
+#### 子组件：
  <template>
     <div> {{value}}</div>
     <div> {{foo}}</div>
