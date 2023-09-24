@@ -7,12 +7,20 @@
   <!-- 3.圣杯布局 -->
   <style>
     .parent {
+      overflow: hidden;
       padding: 0 300px;
       border: 10px solid #add5a2;
     }
-  
+
+    .middle {
+      float: left;
+      width: 100%;
+      height: 1000px;
+      background-color: #e9ccd3;
+    }
+
     .left {
-      /* 通过 margin-left: -100%;使它浮动到左方，
+      /* 通过 margin-left: -100%;将元素浮动到父容器的左方
         然后根据自身定位 left：-200px;
         将之移动到父容器的 padding 中。 */
       float: left;
@@ -24,13 +32,6 @@
       height: 1000px;
       background-color: #428675;
   
-    }
-  
-    .middle {
-      float: left;
-      width: 100%;
-      height: 1000px;
-      background-color: #e9ccd3;
     }
   
     .right {
