@@ -148,3 +148,24 @@ computed: {
 
 - 当我们需要进行数值计算，并且依赖于其它数据时，应该使用 computed，因为可以利用 computed 的缓存特性，避免每次获取值时，都要重新计算；
 - 当我们需要在数据变化时执行异步或开销较大的操作时，应该使用 watch，使用 watch 选项允许我们执行异步操作 ( 访问一个 API )，限制我们执行该操作的频率，并在我们得到最终结果前，设置中间状态。这些都是计算属性无法做到的。
+
+
+## 6、JS创建线程：
+### 使用web workers
+<script>
+  // 创建一个 Web Worker 实例
+  var worker = new Worker('worker.js')
+  worker.onmessage = function(event){
+    // 内容 
+  }
+  // 在主线程中终止线程
+  worker.terminate();
+</script>
+- var worker = new Worker('worker.js')：
+这一行创建了一个名为 worker 的 Web Worker 实例，并指定了要在后台运行的脚本文件为 'worker.js'。'worker.js' 是一个独立的 JavaScript 文件，它将在 Web Worker 内部执行。Web Worker 可以独立于主线程运行，因此它不会影响主线程的性能。
+
+- worker.onmessage：
+这是一个事件处理程序，它会在 Web Worker 发送消息给主线程时触发。当 Web Worker 执行完一些任务后，它可以通过 postMessage 方法将结果发送回主线程，然后主线程可以通过这个事件处理程序来处理收到的消息。
+
+- function(event)：
+这是一个接受事件对象 event 的回调函数。在这个函数内，你可以处理来自 Web Worker 的消息。event.data 属性包含了 Web Worker 发送的数据。

@@ -49,31 +49,25 @@ Vue 实例有一个完整的生命周期，也就是从开始创建、初始化�
 Vue 的父组件和子组件生命周期钩子函数执行顺序可以归类为以下 4 部分：
 
 - 加载渲染过程
-
   父 beforeCreate -> 父 created -> 父 beforeMount -> 子 beforeCreate -> 子 created -> 子 beforeMount -> 子 mounted -> 父 mounted
-
 - 子组件更新过程
-
   父 beforeUpdate -> 子 beforeUpdate -> 子 updated -> 父 updated
-
 - 父组件更新过程
-
   父 beforeUpdate -> 父 updated
-
 - 销毁过程
-
   父 beforeDestroy -> 子 beforeDestroy -> 子 destroyed -> 父 destroyed
 
 ## 9、在哪个生命周期内调用异步请求？
 
-可以在钩子函数 created、beforeMount、mounted 中进行调用，因为在这三个钩子函数中，data 已经创建，可以将服务端端返回的数据进行赋值。但是本人推荐在 created 钩子函数中调用异步请求，因为在 created 钩子函数中调用异步请求有以下优点：
-
+可以在钩子函数 created、beforeMount、mounted 中进行调用，因为在这三个钩子函数中，data 已经创建，可以将服务端端返回的数据进行赋值。
+但是本人推荐在 created 钩子函数中调用异步请求，因为在 created 钩子函数中调用异步请求有以下优点：
 - 能更快获取到服务端数据，减少页面 loading 时间；
-- ssr 不支持 beforeMount 、mounted 钩子函数，所以放在 created 中有助于一致性；
+- 可以执行一些异步操作和副作用，例如发送网络请求、订阅事件等。这些操作可以在服务器端执行，以减少客户端的工作量和提高页面的响应速度。
+- ssr 不支持 beforeMount 、mounted 钩子函数，所以放在 created 中有助于一致性；在 SSR 中，created 钩子函数是在服务器端执行的。由于 beforeMount 和 mounted 钩子函数依赖于客户端环境的 DOM，而在服务器端没有 DOM 环境可用。
 
 ## 10、父组件可以监听到子组件的生命周期吗？
 
-比如有父组件 Parent 和子组件 Child，如果父组件监听到子组件挂载 mounted 就做一些逻辑处理，可以通过以下写法实现：
+- 比如有父组件 Parent 和子组件 Child，如果父组件监听到子组件挂载 mounted 就做一些逻辑处理，可以通过以下写法实现：
 
 ```js
 // Parent.vue
@@ -85,8 +79,7 @@ mounted() {
 }
 复制代码
 ```
-
-以上需要手动通过 $emit 触发父组件的事件，更简单的方式可以在父组件引用子组件时通过 @hook 来监听即可，如下所示：
+- 以上需要手动通过 $emit 触发父组件的事件，更简单的方式可以在父组件引用子组件时通过 @hook 来监听即可，如下所示：
 
 ```js
 //  Parent.vue
