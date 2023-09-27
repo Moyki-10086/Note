@@ -112,7 +112,7 @@ mounted(){
 
 ### 什么是@hook
 
-- https://blog.csdn.net/glorydx/article/details/129259977
+- [vue中使用@hook]:https://blog.csdn.net/glorydx/article/details/129259977
 - @hook 是用来监听组件生命周期的回调函数。
 
 - 这和生命周期函数 mounted，created，updated 有什么区别？
