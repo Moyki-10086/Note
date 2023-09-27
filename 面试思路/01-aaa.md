@@ -2,7 +2,8 @@
 #### 路由
 路由一般都有新窗口
 #### 组件
-同一个路由内产生的是组件。组件 通过v-show,v-if显示隐藏
+- 同一个路由内产生的是组件。组件 通过v-show,v-if显示隐藏,
+- 使代码看上去更简----使用组件
 #### 
 * 同一个路由内  ： 相同重复内容可以写成组件，太小的可以不用；
 * 点击时，跳转新窗口都是路由（相同时，可以是同一个路由）
@@ -32,6 +33,7 @@
 
 ### 4.封装axios时，加入请求和响应拦截
 - 请求拦截器
+```js
 axios.interceptors.request.use(
   config => {
     // 在请求发送前的处理逻辑
@@ -43,7 +45,9 @@ axios.interceptors.request.use(
     return Promise.reject(error);
   }
 );
+```
 -  响应拦截
+```js
 axios.interceptors.response.use(
   response => {
     // 对响应数据的处理逻辑
@@ -54,6 +58,7 @@ axios.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+```
 ### 5.使用路由守卫
 
 ### 6. 密码校验：前瞻 ?=
@@ -64,3 +69,4 @@ axios.interceptors.response.use(
 
 ### 7. pnpm,vue3
 它较npm和Yarn在性能上得到很大提升，被称为快速的，节省磁盘空间的包管理工具
+
