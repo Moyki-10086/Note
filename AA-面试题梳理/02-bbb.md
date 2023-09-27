@@ -70,7 +70,7 @@ export default instance;
 ```
 ### 13、项目开发环境的切换 
 - 在项目开发过程中，通常需要针对不同的环境进行部署，例如：本地环境、测试环境、生产环境等。因此，需要在开发中使用不同的配置，以保证项目可以在不同的环境下正常运行。
-- [切换开发环境]: https://juejin.cn/post/6844904041894395918
+- [切换开发环境]: https://juejin.cn/post/6844904041894395918 "ok"
   - 定义环境变量配置：通过.env 或 .env.\* 文件定义、配置生产和开发环境，测试环境，
     - NODE_ENV=development # 当前所处的环境，例如：development、production、test 等
     - BASE_URL=http://localhost:3000 # 基础 API 地址
