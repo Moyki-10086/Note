@@ -42,7 +42,7 @@
 ### 方法一：v-model 之前的写法：
 
 #### 父组件：
-
+```js
   <template>
       <child-vue 
       :msg='message'
@@ -61,8 +61,9 @@
         }
       }
   </script>
-
+```
 #### 子组件：
+```js
   <template>
     <div> {{msg}}</div>
     <button @click='parentChange'> 修改传递的内容 </button>
@@ -81,14 +82,14 @@
         }
       }
   </script>
-
+```
 ### 方法二：v-model 方法
 
 v-model='message'--本质--> :value="message" + @input="message = 事件参数"
 value --本质--> 接受传递父组件数据
 
 #### 父组件：
-
+```js
   <template>
       <child-vue 
      v-model='message'
@@ -106,8 +107,9 @@ value --本质--> 接受传递父组件数据
         }
       }
   </script>
-  
+ ``` 
 #### 子组件：
+```js
  <template>
     <div> {{value}}</div>
     <button @click='parentChange'> 修改传递的内容 </button>
@@ -127,3 +129,4 @@ value --本质--> 接受传递父组件数据
       }
      
   </script>
+```

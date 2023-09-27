@@ -31,18 +31,18 @@ Vue 实例有一个完整的生命周期，也就是从开始创建、初始化�
 
 **（2）各个生命周期的作用**
 
-| 生命周期      | 描述                                                         |
-| ------------- | ------------------------------------------------------------ |
-| beforeCreate  | 组件实例被创建之初，组件的属性生效之前                       |
-| created       | 组件实例已经完全创建，属性也绑定，但真实 dom 还没有生成，$el 还不可用 |
-| beforeMount   | 在挂载开始之前被调用：相关的 render 函数首次被调用           |
-| mounted       | el 被新创建的 vm.$el 替换，并挂载到实例上去之后调用该钩子    |
-| beforeUpdate  | 组件数据更新之前调用，发生在虚拟 DOM 打补丁之前              |
-| update        | 组件数据更新之后                                             |
-| activited     | keep-alive 专属，组件被激活时调用                            |
-| deactivated   | keep-alive 专属，组件被销毁时调用                            |
-| beforeDestory | 组件销毁前调用                                               |
-| destoryed     | 组件销毁后调用                                               |
+| 生命周期      | 描述                                                                                               |
+| ------------- | -------------------------------------------------------------------------------------------------- |
+| beforeCreate  | 组件实例被创建之初，组件的属性生效之前 ， 没有数据、$el、dom                                       |
+| created       | 组件实例已经完全创建，属性也绑定，但真实 dom 还没有生成，$el 还不可用 ， 数据和方法可用            |
+| beforeMount   | 在挂载开始之前被调用：相关的 render 函数首次被调用 ，创建了$el（未被渲染）、和虚拟 dom             |
+| mounted       | el 被新创建的 vm.$el 替换，并挂载到实例上去之后调用该钩子，挂载实例、渲染dom($el)、可进行 dom 操作 |
+| beforeUpdate  | 组件数据更新之前调用，发生在虚拟 DOM 打补丁之前 ，数据更新、dom 没更新                             |
+| update        | 组件数据更新之后 ， 都更新了                                                                       |
+| activited     | keep-alive 专属，组件被激活时调用                                                                  |
+| deactivated   | keep-alive 专属，组件被销毁时调用                                                                  |
+| beforeDestory | 组件销毁前调用 可清理（计时器、订阅）                                                              |
+| destoryed     | 组件销毁后调用 ，可释放资源，解绑事件监听                                                          |
 
 ## 8、Vue 的父组件和子组件生命周期钩子函数执行顺序？
 
@@ -73,18 +73,22 @@ Vue 的父组件和子组件生命周期钩子函数执行顺序可以归类为�
 
 ## 10、父组件可以监听到子组件的生命周期吗？
 
+### 父子组件传值
+
 比如有父组件 Parent 和子组件 Child，如果父组件监听到子组件挂载 mounted 就做一些逻辑处理，可以通过以下写法实现：
 
 ```js
 // Parent.vue
 <Child @mounted="doSomething"/>
-    
+
 // Child.vue
 mounted() {
   this.$emit("mounted");
 }
 复制代码
 ```
+
+### @hook
 
 以上需要手动通过 $emit 触发父组件的事件，更简单的方式可以在父组件引用子组件时通过 @hook 来监听即可，如下所示：
 
@@ -95,15 +99,55 @@ mounted() {
 doSomething() {
    console.log('父组件监听到 mounted 钩子函数 ...');
 },
-    
+
 //  Child.vue
 mounted(){
    console.log('子组件触发 mounted 钩子函数 ...');
-},    
-    
+},
+
 // 以上输出顺序为：
 // 子组件触发 mounted 钩子函数 ...
-// 父组件监听到 mounted 钩子函数 ...     
+// 父组件监听到 mounted 钩子函数 ...
 ```
 
-当然 @hook 方法不仅仅是可以监听 mounted，其它的生命周期事件，例如：created，updated 等都可以监听。
+### 什么是@hook
+
+- https://blog.csdn.net/glorydx/article/details/129259977
+- @hook 是用来监听组件生命周期的回调函数。
+
+- 这和生命周期函数 mounted，created，updated 有什么区别？
+
+  - 区别 1：@hook 会在对应的生命周期函数执行后执行。
+
+  ```js
+  <!-- 在某个生命周期中，确认另一个生命周期要执行的函数 -->
+  mounted () {
+    this.$once('hook:beforeDestroy', function () {
+      <!-- 内容 -->
+    })
+  }
+  ```
+
+  - 区别 2：@hook 可以在父组件监听子组件的生命周期运行情况。
+
+  ```js
+  // 父组件
+  <Children @hook:mounted="ButtonRender"/>
+  export default {
+    name: 'Parents',
+    components: {
+      Children
+  },
+    methods: {
+      ButtonRender() {
+        console.log('渲染完成')
+      }
+    }
+  }
+  // 子组件
+  mounted(){
+   console.log('子组件触发 mounted 钩子函数 ...');
+  }
+  ```
+
+- 当然 @hook 方法不仅仅是可以监听 mounted，其它的生命周期事件，例如：created，updated 等都可以监听。

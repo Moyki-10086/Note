@@ -66,3 +66,6 @@ Composition API的好处不仅仅是以不同的方式进行编码，更重要�
 ### 20、export和export default的区别 
 - export 可以导出多个 
 - export default 只可以导出一个
+
+### 21、Vue3在setup不能使用this的原因
+在setup，组件实例还没有被创建

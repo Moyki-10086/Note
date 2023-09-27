@@ -7,13 +7,14 @@
 
 
 ### 例子
-
+```js
   :foo.sync='foo'   ---相当于--- >
     :foo='foo' -- props down 传递数据
     @update:foo="foo = 事件参数" -- 自定义事件
-
+```
 
 ##### 父组件：
+```js
   <template>
       <child-vue 
      v-model='message'
@@ -33,8 +34,9 @@
         }
       }
   </script>
-
+```
 ##### 子组件：
+```js
  <template>
     <div> {{value}}</div>
     <div> {{foo}}</div>
@@ -59,3 +61,4 @@
       }
      
   </script>
+```
