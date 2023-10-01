@@ -72,3 +72,6 @@ axios.interceptors.response.use(
 ### 7. pnpm,vue3
 它较npm和Yarn在性能上得到很大提升，被称为快速的，节省磁盘空间的包管理工具
 
+### 8. postcss 添加 网页前缀
+- 在postcss.config.js 中 添加autoprefixer
+<img src='./img/aaa.png'/>
