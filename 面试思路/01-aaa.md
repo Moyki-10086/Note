@@ -75,3 +75,10 @@ axios.interceptors.response.use(
 ### 8. postcss 添加 网页前缀
 - 在postcss.config.js 中 添加autoprefixer
 <img src='./img/aaa.png'/>
+
+### 9. 更换主题
+- css variable （css变量）
+设置root 变量
+- 框架：如windicss
+根据当前电脑主题颜色，修改项目根节点的类
+<img src="./img/bbb.png"/>
