@@ -1,5 +1,6 @@
 [阮一峰的css变量](https://www.ruanyifeng.com/blog/2017/05/css-variables.html)
 
+## 
 CSS 变量（CSS variable）又叫做"CSS 自定义属性"（CSS custom properties），可以通过JS动态改变。
 
 ### 一、变量的声明
@@ -100,4 +101,160 @@ document.body.style.getPropertyValue('--primary').trim();
 
 // 删除变量
 document.body.style.removeProperty('--primary');
+```
+## 趣味案例
+### 打字机（年度报告项目）
+实现方式：
+```js
+<p class="greet-info line-5">
+  <span v-for="(item, index) in greetInfoArr" :key="'greet-' + index" :style="'--greet-index:' + (index + 1)">
+    {{ item }}
+  </span>
+</p>
+
+export default {
+computed: {
+    greetInfoArr() {
+      return this.greetInfo.split('')
+    }
+  },
+  data() {
+    return {
+      greetInfo:
+        '“开始完成一件事情，比做好它更重要。因为只要开始了，你就有机会把它做的更好”'
+    }
+  }
+}
+
+<style lang="scss">
+.greet-info {
+  position: absolute;
+  z-index: 9;
+  left: 18.75%;
+  bottom: 7.41%;
+  font-size: 24px;
+  font-weight: 400;
+  color: #ffffff;
+  line-height: 33px;
+  @keyframes revolveScale {
+    60% {
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 1;
+    }
+  }
+  span {
+    display: inline-block;
+    opacity: 0;
+    --time: calc(var(--greet-index) * 0.1s + 2s);
+    // forwards当动画完成后，保持最后一帧的状态
+    animation: revolveScale 0.4s forwards; 
+    animation-delay: var(--time);
+  }
+}
+</style>
+
+```
+
+### 自动变色进度条
+实现方式：
+```js
+<!-- 
+  当进度小于 30% 时，背景呈红色
+  当进度大于 30% 并且 小于 60% 时，背景呈橙色
+  当进度大于 60% 并且 小于 90% 时，背景呈蓝色
+  当进度大于 90% 时，背景呈绿色 -->
+  <div class="bar" style="--percent: 50"></div>
+
+<style lang="scss">
+.bar {
+  display: flex;
+  width: 600px;
+  height: 20px;
+  background-color: #f5f5f5;
+}
+.bar::before {
+  // 创建或重置一个或多个计数器
+  counter-reset: progress var(--percent);
+  // counter() 函数以字符串形式返回当前计数器的值, 表示空格
+  content: counter(progress) '%\2002';
+  display: flex;
+  justify-content: end;
+  width: calc(var(--percent) * 1%);
+  font-size: 12px;
+  color: #fff;
+  white-space: nowrap;
+  // 渐变色
+  background-image: linear-gradient(green, green),
+    linear-gradient(#2486ff, #2486ff), linear-gradient(orange, orange),
+    linear-gradient(red, red);
+  background-size: calc((var(--percent) - 90) * 100%) 100%,
+    calc((var(--percent) - 60) * 100%) 100%,
+    calc((var(--percent) - 30) * 100%) 100%, 100% 100%;
+}
+</style>
+
+
+```
+### 悬浮跟踪按钮
+实现方式：
+```js
+<div class="bruce flex-ct-x">
+  <a class="track-btn">
+	<span>妙用CSS变量，让你的CSS变得更心动</span>
+  </a>
+</div>
+
+// js 监听鼠标修改变量值
+const btn = document.getElementsByClassName("track-btn")[0];
+const btnStyle = btn.style;
+btn.addEventListener("mousemove", e => {
+  btnStyle.setProperty("--x", `${e.offsetX}px`);
+  btnStyle.setProperty("--y", `${e.offsetY}px`);
+});
+.bruce {
+   overflow: hidden;
+   height: 100vh;
+}
+.flex-ct-x {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+.track-btn {
+  overflow: hidden;
+  position: relative;
+  border-radius: 25px;
+  width: 400px;
+  height: 50px;
+  background-color: #66f;
+  cursor: pointer;
+  line-height: 50px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+  color: #fff;
+  span {
+	position: relative;
+	pointer-events: none; // 不加会卡顿
+  }
+  &::before {
+	--size: 0;
+	position: absolute;
+	left: var(--x);
+	top: var(--y);
+	width: var(--size);
+	height: var(--size);
+	background-image: radial-gradient(circle closest-side, #09f, transparent);
+	content: "";
+	transform: translate3d(-50%, -50%, 0);
+	transition: width 200ms ease, height 200ms ease;
+  }
+  &:hover::before {
+	--size: 400px;
+  }
+}
+
 ```
