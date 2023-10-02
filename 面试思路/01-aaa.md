@@ -69,7 +69,8 @@ axios.interceptors.response.use(
   - {6,12} ：长度
 
 ---
-### 7. 使用pnpm创建vue3项目
+### 7. 使用pnpm install 创建vue3项目
+
 它较npm和Yarn在性能上得到很大提升，被称为快速的，节省磁盘空间的包管理工具，多用于vue3
 
 ### 8. postcss 添加 网页前缀
@@ -82,3 +83,5 @@ axios.interceptors.response.use(
 - 框架：如windicss
 根据当前电脑主题颜色，修改项目根节点的类
 <img src="./img/bbb.png"/>
+### 10. 设置count 文件夹
+管理常量，导出
