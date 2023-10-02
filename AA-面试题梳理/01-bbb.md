@@ -56,3 +56,22 @@
  1. 点击详情页中的商品数据，数据添加到购物车中
  2. 在购物车中展示商品的名称、单价和数量
  3. 具有选择功能，可以选择或者取消选中，可以全选或者取消全选，可以只计算选中的商品的总价，以及确定是否选中商品
+
+
+ ### 补充1：webpack的hash
+ 通过webpack构建之后，生成对应文件名自动带上对应的MD5值。
+ 1. hash：整个项目的hash值，其根据每次编译内容计算得到，每次编译之后都会生成新的hash,即修改任何文件都会导致所有文件的hash发生改变。
+  - 只改了一个main.css，会导致打包后所有文件的hash值都改变。所以当打包名称设置为hash时，整个项目文件是一致的，修改其中一个会导致所有跟着一起改。
+  - 采用hash计算的话，每一次构建后生成的哈希值都不一样，即使文件内容压根没有改变。这样子是没办法实现缓存效果，我们需要换另一种哈希值计算方式，即chunkhash。
+ 2. chunkhash：根据不同的入口文件(Entry)进行依赖文件解析、构建对应的chunk，生成对应的哈希值
+  - 当规则为chunkhash时，打包后的hash值会根据入口文件的不用而不一样，当某个入口文件修改后重新打包，会导致本入口文件关联的所有文件的hash值都修改，但是不会影响到其他入口文件的hash值
+  - 使用chunkhash存在一个问题，就是当在一个JS文件中引入CSS文件，编译后它们的hash是相同的，而且只要js文件发生改变 ，关联的css文件hash也会改变,这个时候可以使用mini-css-extract-plugin里的contenthash值，保证即使css文件所处的模块里就算其他文件内容改变，只要css文件内容不变，那么不会重复构建。
+ 3. contenthash：
+  - 当规则为contenthash时，每个文件的hash值都是根据自身内容而生成，当某个文件内容修改时，打包后只会修改其本身的hash值，不会影响其他文件的hash值
+
+ ### 补充2：postcss和postcss-loader的区别
+1. postcss 是处理css的工具，通过一系列插件，控制样式
+2. postcss-loader 是在 webpack 里用的，相当于 webpack加载了postcss的功能，用来对 css 进行预处理
+
+### 补充3：在vue中使用cssModule
+[官方地址](https://vue-loader.vuejs.org/zh/guide/css-modules.html#%E7%94%A8%E6%B3%95)
