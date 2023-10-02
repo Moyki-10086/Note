@@ -86,3 +86,7 @@ axios.interceptors.response.use(
 
 ### 10. 设置count 文件夹
 管理常量，导出
+
+### 11.使用github在线vscode
+1. 将com改为dev
+2. 在github后加1s
