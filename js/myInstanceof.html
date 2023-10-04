@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    function myInstanceof (left, right) {
+      let proLeft = Object.getPrototypeOf(left)
+      if (Object.getPrototypeOf(proLeft)) {
+        myInstanceof(proLeft, right)
+      }
+      else {
+        if (proLeft == right.prototype) {
+          console.log(true);
+        }
+        else {
+          console.log(false);
+        }
+      }
+    }
+
+    myInstanceof('123', String) // false
+    myInstanceof({}, Object) // true
+      myInstanceof([], Object) // true
+  </script>
+</body>
+
+</html>
