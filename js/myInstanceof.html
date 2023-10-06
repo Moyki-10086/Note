@@ -25,8 +25,13 @@
     }
 
     myInstanceof('123', String) // false
+    myInstanceof('123', Object) // true
     myInstanceof({}, Object) // true
-      myInstanceof([], Object) // true
+    myInstanceof([], Object) // true
+    myInstanceof([1, 7], Object) // true
+    myInstanceof([1, 7], Array) // false
+    // myInstanceof(null, Object) // false
+    // myInstanceof(undefined, Object) // false
   </script>
 </body>
 
