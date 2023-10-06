@@ -90,3 +90,8 @@ axios.interceptors.response.use(
 ### 11.使用github在线vscode
 1. 将com改为dev
 2. 在github后加1s
+
+### 12. babel.config.js文件
+一个用于配置Babel编译工具的文件。
+主要作用是将ECMAScript 2015+ 版本的代码，转换为向后兼容的JS语法，以便能够运行在当前和旧版本的浏览器或其它环境中。
+Vue项目中普遍使用ES6语法，若要求兼容低版本浏览器，就需要引入Babel，将ES6转换为ES5。
