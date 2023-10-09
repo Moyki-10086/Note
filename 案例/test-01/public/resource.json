@@ -1,0 +1,410 @@
+{
+  "code": "200",
+  "message": "查询成功",
+  "data": {
+      "0": [
+          {
+              "re_id": 1,
+              "re_create": 1687159034,
+              "re_update": 1687159034,
+              "re_api_path": "admin.adminPower\/testAdminMenu",
+              "re_name": "测试资源",
+              "re_code": "testMenu",
+              "re_module": "admin",
+              "re_controller": "adminPower",
+              "re_action": "testAdminMenu",
+              "re_menu_id": 0
+          },
+          {
+              "re_id": 2,
+              "re_create": 1687250823,
+              "re_update": 1687250823,
+              "re_api_path": "admin.adminPower\/testAdminMenu",
+              "re_name": "测试资源",
+              "re_code": "testMenu",
+              "re_module": "admin",
+              "re_controller": "adminPower",
+              "re_action": "testAdminMenu",
+              "re_menu_id": 0
+          },
+          {
+              "re_id": 3,
+              "re_create": 1687251126,
+              "re_update": 1687251126,
+              "re_api_path": "admin.adminPower\/testAdminMenu",
+              "re_name": "测试资源",
+              "re_code": "testMenu",
+              "re_module": "admin",
+              "re_controller": "adminPower",
+              "re_action": "testAdminMenu",
+              "re_menu_id": 0
+          },
+          {
+              "re_id": 5,
+              "re_create": 1687574911,
+              "re_update": 1688093452,
+              "re_api_path": "layout.imgWrite\/detail",
+              "re_name": "详情",
+              "re_code": "detail",
+              "re_module": "layout",
+              "re_controller": "imgWrite",
+              "re_action": "detail",
+              "re_menu_id": 0
+          }
+      ],
+      "15": [
+          {
+              "re_id": 7,
+              "re_create": 1687657055,
+              "re_update": 1687683753,
+              "re_api_path": "layout.imgWrite\/detail",
+              "re_name": "详情编辑测试3",
+              "re_code": "detail5",
+              "re_module": "layout",
+              "re_controller": "imgWrite",
+              "re_action": "detail",
+              "re_menu_id": 15
+          },
+          {
+              "re_id": 13,
+              "re_create": 1687682854,
+              "re_update": 1687683770,
+              "re_api_path": "1.1\/1",
+              "re_name": "114",
+              "re_code": "test",
+              "re_module": "1",
+              "re_controller": "1",
+              "re_action": "1",
+              "re_menu_id": 15
+          },
+          {
+              "re_id": 14,
+              "re_create": 1687682938,
+              "re_update": 1687682938,
+              "re_api_path": "2.2\/2",
+              "re_name": "2",
+              "re_code": "2",
+              "re_module": "2",
+              "re_controller": "2",
+              "re_action": "2",
+              "re_menu_id": 15
+          }
+      ],
+      "4": [
+          {
+              "re_id": 8,
+              "re_create": 1687657291,
+              "re_update": 1688354563,
+              "re_api_path": "layout.UnitManagement\/detail",
+              "re_name": "详情",
+              "re_code": "detailUnitManagement",
+              "re_module": "layout",
+              "re_controller": "UnitManagement",
+              "re_action": "detail",
+              "re_menu_id": 4
+          }
+      ],
+      "5": [
+          {
+              "re_id": 9,
+              "re_create": 1687657340,
+              "re_update": 1688354576,
+              "re_api_path": "layout.Voluntee\/detail",
+              "re_name": "详情",
+              "re_code": "detailVoluntee",
+              "re_module": "layout",
+              "re_controller": "Voluntee",
+              "re_action": "detail",
+              "re_menu_id": 5
+          },
+          {
+              "re_id": 10,
+              "re_create": 1687657447,
+              "re_update": 1688354586,
+              "re_api_path": "layout.Voluntee\/logout",
+              "re_name": "注销",
+              "re_code": "logoutVoluntee",
+              "re_module": "layout",
+              "re_controller": "Voluntee",
+              "re_action": "logout",
+              "re_menu_id": 5
+          }
+      ],
+      "6": [
+          {
+              "re_id": 11,
+              "re_create": 1687657547,
+              "re_update": 1688354549,
+              "re_api_path": "layout.punchLog\/detail",
+              "re_name": "详情",
+              "re_code": "detailPunchLog",
+              "re_module": "layout",
+              "re_controller": "punchLog",
+              "re_action": "detail",
+              "re_menu_id": 6
+          }
+      ],
+      "8": [
+          {
+              "re_id": 23,
+              "re_create": 1687999584,
+              "re_update": 1688354625,
+              "re_api_path": "permisson.role\/edit",
+              "re_name": "编辑",
+              "re_code": "editRole",
+              "re_module": "permisson",
+              "re_controller": "role",
+              "re_action": "edit",
+              "re_menu_id": 8
+          },
+          {
+              "re_id": 24,
+              "re_create": 1687999730,
+              "re_update": 1688354631,
+              "re_api_path": "permisson.role\/delete",
+              "re_name": "删除",
+              "re_code": "deleteRole",
+              "re_module": "permisson",
+              "re_controller": "role",
+              "re_action": "delete",
+              "re_menu_id": 8
+          },
+          {
+              "re_id": 35,
+              "re_create": 1688347473,
+              "re_update": 1688354640,
+              "re_api_path": "permisson.role\/addRole",
+              "re_name": "添加角色",
+              "re_code": "addRole",
+              "re_module": "permisson",
+              "re_controller": "role",
+              "re_action": "addRole",
+              "re_menu_id": 8
+          },
+          {
+              "re_id": 36,
+              "re_create": 1688347509,
+              "re_update": 1688354648,
+              "re_api_path": "permisson.role\/deleteTtem",
+              "re_name": "批量删除",
+              "re_code": "deleteTtemRole",
+              "re_module": "permisson",
+              "re_controller": "role",
+              "re_action": "deleteTtem",
+              "re_menu_id": 8
+          },
+          {
+              "re_id": 45,
+              "re_create": 1688362941,
+              "re_update": 1688362941,
+              "re_api_path": "permisson.menu\/changeRole",
+              "re_name": "角色状态",
+              "re_code": "changeRole",
+              "re_module": "permisson",
+              "re_controller": "menu",
+              "re_action": "changeRole",
+              "re_menu_id": 8
+          }
+      ],
+      "10": [
+          {
+              "re_id": 25,
+              "re_create": 1687999936,
+              "re_update": 1688354716,
+              "re_api_path": "permisson.partment\/detail",
+              "re_name": "详情",
+              "re_code": "detailPartment",
+              "re_module": "permisson",
+              "re_controller": "partment",
+              "re_action": "detail",
+              "re_menu_id": 10
+          },
+          {
+              "re_id": 26,
+              "re_create": 1688000014,
+              "re_update": 1688354727,
+              "re_api_path": "permisson.partment\/edit",
+              "re_name": "编辑",
+              "re_code": "editPartment",
+              "re_module": "permisson",
+              "re_controller": "partment",
+              "re_action": "edit",
+              "re_menu_id": 10
+          },
+          {
+              "re_id": 27,
+              "re_create": 1688000060,
+              "re_update": 1688354741,
+              "re_api_path": "permisson.partment\/delete",
+              "re_name": "删除",
+              "re_code": "deletePartment",
+              "re_module": "permisson",
+              "re_controller": "partment",
+              "re_action": "delete",
+              "re_menu_id": 10
+          },
+          {
+              "re_id": 37,
+              "re_create": 1688347919,
+              "re_update": 1688347919,
+              "re_api_path": "permisson.menu\/addPartment",
+              "re_name": "添加部门",
+              "re_code": "addPartment",
+              "re_module": "permisson",
+              "re_controller": "menu",
+              "re_action": "addPartment",
+              "re_menu_id": 10
+          },
+          {
+              "re_id": 38,
+              "re_create": 1688347949,
+              "re_update": 1688354749,
+              "re_api_path": "permisson.menu\/expand",
+              "re_name": "折叠",
+              "re_code": "expandPartment",
+              "re_module": "permisson",
+              "re_controller": "menu",
+              "re_action": "expand",
+              "re_menu_id": 10
+          }
+      ],
+      "11": [
+          {
+              "re_id": 28,
+              "re_create": 1688000150,
+              "re_update": 1688354766,
+              "re_api_path": "permisson.personnelManagement\/detail",
+              "re_name": "详情",
+              "re_code": "detailManagement",
+              "re_module": "permisson",
+              "re_controller": "personnelManagement",
+              "re_action": "detail",
+              "re_menu_id": 11
+          },
+          {
+              "re_id": 29,
+              "re_create": 1688000184,
+              "re_update": 1688354771,
+              "re_api_path": "permisson.personnelManagement\/edit",
+              "re_name": "编辑",
+              "re_code": "editManagement",
+              "re_module": "permisson",
+              "re_controller": "personnelManagement",
+              "re_action": "edit",
+              "re_menu_id": 11
+          },
+          {
+              "re_id": 30,
+              "re_create": 1688000219,
+              "re_update": 1688354777,
+              "re_api_path": "permisson.personnelManagement\/resetPwd",
+              "re_name": "重置密码",
+              "re_code": "resetPwdManagement",
+              "re_module": "permisson",
+              "re_controller": "personnelManagement",
+              "re_action": "resetPwd",
+              "re_menu_id": 11
+          },
+          {
+              "re_id": 31,
+              "re_create": 1688000260,
+              "re_update": 1688354783,
+              "re_api_path": "permisson.personnelManagement\/delete",
+              "re_name": "删除",
+              "re_code": "deleteManagement",
+              "re_module": "permisson",
+              "re_controller": "personnelManagement",
+              "re_action": "delete",
+              "re_menu_id": 11
+          }
+      ],
+      "25": [
+          {
+              "re_id": 34,
+              "re_create": 1688093559,
+              "re_update": 1688354531,
+              "re_api_path": "layout.imgWrite\/detail",
+              "re_name": "详情",
+              "re_code": "detailMenu",
+              "re_module": "layout",
+              "re_controller": "imgWrite",
+              "re_action": "detail",
+              "re_menu_id": 25
+          }
+      ],
+      "9": [
+          {
+              "re_id": 39,
+              "re_create": 1688351028,
+              "re_update": 1688354666,
+              "re_api_path": "permisson.menu\/addSoureces",
+              "re_name": "添加资源",
+              "re_code": "addSourecesMenu",
+              "re_module": "permisson",
+              "re_controller": "menu",
+              "re_action": "addSoureces",
+              "re_menu_id": 9
+          },
+          {
+              "re_id": 40,
+              "re_create": 1688351079,
+              "re_update": 1688354672,
+              "re_api_path": "permisson.menu\/second",
+              "re_name": "二级",
+              "re_code": "secondMenu",
+              "re_module": "permisson",
+              "re_controller": "menu",
+              "re_action": "second",
+              "re_menu_id": 9
+          },
+          {
+              "re_id": 41,
+              "re_create": 1688351159,
+              "re_update": 1688354684,
+              "re_api_path": "permisson.menu\/editHandleClick",
+              "re_name": "编辑",
+              "re_code": "editHandleClickMenu",
+              "re_module": "permisson",
+              "re_controller": "menu",
+              "re_action": "editHandleClick",
+              "re_menu_id": 9
+          },
+          {
+              "re_id": 42,
+              "re_create": 1688351191,
+              "re_update": 1688354690,
+              "re_api_path": "permisson.menu\/delHandleClick",
+              "re_name": "删除",
+              "re_code": "delHandleClickMenu",
+              "re_module": "permisson",
+              "re_controller": "menu",
+              "re_action": "delHandleClick",
+              "re_menu_id": 9
+          },
+          {
+              "re_id": 43,
+              "re_create": 1688351255,
+              "re_update": 1688354697,
+              "re_api_path": "permisson.menu\/zuiyuan",
+              "re_name": "资源",
+              "re_code": "zuiyuanMenu",
+              "re_module": "permisson",
+              "re_controller": "menu",
+              "re_action": "zuiyuan",
+              "re_menu_id": 9
+          },
+          {
+              "re_id": 44,
+              "re_create": 1688351299,
+              "re_update": 1688351299,
+              "re_api_path": "permisson.menu\/addMenu",
+              "re_name": "添加菜单",
+              "re_code": "addMenu",
+              "re_module": "permisson",
+              "re_controller": "menu",
+              "re_action": "addMenu",
+              "re_menu_id": 9
+          }
+      ]
+  }
+}

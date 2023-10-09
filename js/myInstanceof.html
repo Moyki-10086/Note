@@ -9,29 +9,89 @@
 
 <body>
   <script>
+    // 注意以下错误：
+    // 1.忽略了undefined 和 null
+    // 2.
     function myInstanceof (left, right) {
+      if (typeof left !== 'object' || left === null) {
+        console.log(false);
+        return false
+      }
       let proLeft = Object.getPrototypeOf(left)
       if (Object.getPrototypeOf(proLeft)) {
         myInstanceof(proLeft, right)
       }
       else {
         if (proLeft == right.prototype) {
-          console.log(true);
-        }
-        else {
-          console.log(false);
-        }
+        console.log(true);
+        return true
       }
-    }
+      else {
+        console.log(false);
+        return false
+      }
+      }
 
+    }
+    // 正确：
+    // function myInstanceof (left, right) {
+    //   // 这里先用typeof来判断基础数据类型，如果是，直接返回false
+    //   if (typeof left !== 'object' || left === null) {
+    //     console.log(false); return false
+    //   }
+    //   //找到相同原型对象，返回true
+    //   // getPrototypeOf是object对象自带的API，能够拿到参数的原型对象
+    //   let proto = Object.getPrototypeOf(left)
+    //   //循环往下寻找，直到找到相同的原型对象
+    //   while (true) {
+    //     if (proto === null) {
+    //       console.log(false);
+    //       return false
+    //     }
+    //     //找到相同原型对象，返回true
+    //     if (proto === right.prototype) {
+    //       console.log(true); 
+    //       return true
+    //     }
+    //     //找到相同原型对象，返回true
+    //     proto = Object.getPrototypeOf(proto)
+    //   }
+    // }
     myInstanceof('123', String) // false
     myInstanceof('123', Object) // true
     myInstanceof({}, Object) // true
     myInstanceof([], Object) // true
     myInstanceof([1, 7], Object) // true
     myInstanceof([1, 7], Array) // false
-    // myInstanceof(null, Object) // false
-    // myInstanceof(undefined, Object) // false
+    myInstanceof(null, Object) // false
+    myInstanceof(undefined, Object) // false
+    myInstanceof(123, Number)
+    myInstanceof(new Number(123), Number)
+
+
+
+
+    // function getType (obj) {
+    //   let type = typeof obj;
+    //   if (type !== "object") {
+    //     // 先进行typeof判断，如果是基础数据类型，直接返回
+    //     console.log(type);
+    //     return type;
+    //   }
+    //   // 对于typeof返回结果是obiect的，再进行如下的判断，正则返回结果
+    //   let a = Object.prototype.toString.call(obj).replace(/^\[object (\S+)\]$/, '$1')
+    //   console.log(a);
+    //   return a;
+    // }
+    // /* 代码验证，需要注意大小写，哪些是typeof判断，哪些是tostring判断? 思考下 */
+    // getType([]) //“Array typeof []是object，因此toString返回
+    // getType('123') //“string' typeof 直接返回
+    // getType(window) //“Window' toString返回
+    // getType(null) //“NulL"首字母大写，typeof null是object，需toString来判断
+    // getType(undefined)//“undefined” typeof 直接返回
+    // getType() //“undefined" typeof 直接返回
+    // getType(function () { }) //“function” typeof能判断，因此首字母小写
+    // getType(/123/g)//"RegExp" toString返回
   </script>
 </body>
 

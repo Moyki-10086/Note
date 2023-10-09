@@ -1,0 +1,109 @@
+{
+    "code": "200",
+    "message": "查询成功",
+    "data": {
+        "list": [
+            {
+                "me_id": 25,
+                "me_create": 1688084903,
+                "me_update": 1688087562,
+                "me_father_path": "0",
+                "me_name": "图文上报管理",
+                "me_code": "imgWrite",
+                "me_icon": "icon iconfont icon-tuwenxiangqing",
+                "me_router": "\/layout\/imgWrite",
+                "me_sort": 4
+            },
+            {
+                "me_id": 6,
+                "me_create": 1687143694,
+                "me_update": 1688087450,
+                "me_father_path": "0",
+                "me_name": "范围打卡记录",
+                "me_code": "punchLog",
+                "me_icon": "icon iconfont icon-daka1",
+                "me_router": "\/layout\/punchLog",
+                "me_sort": 3
+            },
+            {
+                "me_id": 4,
+                "me_create": 1687143481,
+                "me_update": 1688087467,
+                "me_father_path": "0",
+                "me_name": "重点单位管理",
+                "me_code": "UnitManagement",
+                "me_icon": "icon iconfont icon-zuoyedanwei",
+                "me_router": "\/layout\/UnitManagement",
+                "me_sort": 2
+            },
+            {
+                "me_id": 5,
+                "me_create": 1687143583,
+                "me_update": 1688087482,
+                "me_father_path": "0",
+                "me_name": "志愿者管理",
+                "me_code": "Voluntee",
+                "me_icon": "icon iconfont icon-a-lujing4916",
+                "me_router": "\/layout\/Voluntee",
+                "me_sort": 1
+            },
+            {
+                "me_id": 7,
+                "me_create": 1687153628,
+                "me_update": 1688087220,
+                "me_father_path": "0",
+                "me_name": "权限管理",
+                "me_code": "permisson",
+                "me_icon": "icon iconfont icon-a-zu8145",
+                "me_router": "layout\/permisson",
+                "me_sort": 1
+            },
+            {
+                "me_id": 8,
+                "me_create": 1687154007,
+                "me_update": 1687253664,
+                "me_father_path": "7",
+                "me_name": "角色管理",
+                "me_code": "role",
+                "me_icon": "icon iconfont icon-a-zu8142",
+                "me_router": "\/permisson\/role",
+                "me_sort": 0
+            },
+            {
+                "me_id": 9,
+                "me_create": 1687154041,
+                "me_update": 1687253804,
+                "me_father_path": "7",
+                "me_name": "菜单管理",
+                "me_code": "menu",
+                "me_icon": "icon iconfont icon-a-lujing4911",
+                "me_router": "\/permisson\/menu",
+                "me_sort": 0
+            },
+            {
+                "me_id": 10,
+                "me_create": 1687154075,
+                "me_update": 1687253896,
+                "me_father_path": "7",
+                "me_name": "部门管理",
+                "me_code": "partment",
+                "me_icon": "icon iconfont icon-a-lujing4912",
+                "me_router": "\/permisson\/partment",
+                "me_sort": 0
+            },
+            {
+                "me_id": 11,
+                "me_create": 1687154124,
+                "me_update": 1687167244,
+                "me_father_path": "7",
+                "me_name": "用户管理",
+                "me_code": "personnelManagement",
+                "me_icon": "icon iconfont icon-daka1",
+                "me_router": "\/permisson\/personnelManagement",
+                "me_sort": 0
+            }
+        ],
+        "pages": 1,
+        "count": 9
+    }
+}
