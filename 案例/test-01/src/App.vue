@@ -1,25 +1,20 @@
 <template>
   <div id="app">
     <!-- 第一层 -->
-    <el-checkbox :indeterminate="isIndeterminate1" v-model="ifAll" @change="allCheck">全选</el-checkbox>
+    <el-checkbox :indeterminate="isIndeterminate" v-model="ifAll" @change="allCheck">全选</el-checkbox>
     <div style="margin: 15px 0;"></div>
 
-    <ul v-for="item in menu" :key="item.me_id">
+    <ul v-for="(item, index) in dataList" :key="item.me_id">
 
-      <el-checkbox :indeterminate="isIndeterminate2[item.me_id]" v-model="ifThis[item.me_id]" @change="thisCheck(item)"
-        :label="item">{{ item.me_name }}</el-checkbox>
+      <el-checkbox :indeterminate="item.isHalf" v-model="item.isCheck" @change="thisCheck(item, index)" :label="item">{{
+        item.me_name }}</el-checkbox>
       <!-- 第二层 -->
       <div style="margin: 15px 0;"></div>
 
-      <el-checkbox-group v-model="nowRes[item.me_id]" @change="groupCheck(item)">
-        <ul class="fl">
-          <el-checkbox :label="k" v-for="k in res[item.me_id]" :key="k.re_id">{{ k.re_name }}</el-checkbox>
-        </ul>
-      </el-checkbox-group>
-
-
-
-
+      <ul class="fl">
+        <el-checkbox :label="k" v-for="k in item.children" :key="k.re_id" v-model="k.isCheck"
+          @change="groupCheck(k, item)">{{ k.re_name }}</el-checkbox>
+      </ul>
     </ul>
   </div>
 </template>
@@ -36,125 +31,124 @@ export default {
       // 总列表
       menu: [],
       res: {},
+      dataList: [],
       // 选中列表
       nowMenu: [],
-      nowRes: {},
+      nowRes: [],
       // 是否半选
-      isIndeterminate1: false,
-      isIndeterminate2: {},
+      isIndeterminate: false,
       // 是否全选
       ifAll: false,
-      ifThis: {},
 
     }
   },
   methods: {
     // 一级标题
     allCheck (val) {
-      console.log(val);
-      this.nowMenu = val ? JSON.parse(JSON.stringify(this.menu)) : []
-      this.isIndeterminate1 = false;
-      this.resetFalse(this.isIndeterminate2)
       if (val) {
-        this.menu.forEach(item => {
-          this.ifThis[item.me_id] = true
-          this.nowRes[item.me_id] = this.ifThis[item.me_id] ? this.res[item.me_id] : [];
-        })
+        this.isIndeterminate = false
+        this.dataList.forEach(item => {
+          item.isCheck = true;
+          item.isHalf = false
+          if (item.children) {
+            item.children.forEach(child => {
+              child.isCheck = true
+            })
+          }
+        }
+        )
+      } else {
+        this.isIndeterminate = false
+        this.dataList.forEach(item => {
+          item.isCheck = false;
+          item.isHalf = false
+          if (item.children) {
+            item.children.forEach(child => {
+              child.isCheck = false
+            })
+          }
+        }
+        )
       }
-      else {
-        this.menu.forEach(item => {
-          this.ifThis[item.me_id] = false
-          this.nowRes[item.me_id] = []
-        })
-      }
-      console.log(this.res);
-      console.log(this.nowRes);
-      console.log(this.nowMenu);
-      
     },
     // 二级标题
     thisCheck (val) {
-      // 子判断
-      this.nowRes[val.me_id] = this.ifThis[val.me_id] ? this.res[val.me_id] : [];
-      this.isIndeterminate2[val.me_id] = false;
-
-      // 父级判断
-console.log(this.nowMenu);
-      let ifId = this.nowMenu.findIndex(item => item.me_id == val.me_id)
-
-      console.log(this.isIndeterminate2[val.me_id]);
-      console.log(this.nowRes[val.me_id]);
-      console.log(this.ifThis[val.me_id]);
-      console.log(ifId);
-      console.log(this.nowMenu);
-      if (ifId == -1) {
-        this.nowMenu.push(val)
-      } else {
-        if (!this.isIndeterminate2[val.me_id]&& !this.ifThis[val.me_id])
-          this.nowMenu.splice(ifId, 1)
+      if (!val.children) {
+        this.parentAll()
+        return
       }
-
-      console.log(this.nowMenu);
-
-
-      let checkedCount = this.nowMenu.length;
-      this.ifAll = checkedCount === this.menu.length;
-      this.isIndeterminate1 = checkedCount > 0 && checkedCount < this.menu.length;
-console.log(this.nowMenu);
-      console.log(this.menu);
+      val.isHalf = false
+      if (val.isCheck) {
+        val.children.forEach(item => {
+          item.isCheck = true
+        })
+      } else {
+        val.children.forEach(item => {
+          item.isCheck = false
+        })
+      }
+      // 父级
+      this.parentAll()
     },
     // 二级group
-    groupCheck (val) {
-      console.log(val);
-      // if(!this.res[val.me_id])
-      //   return
-      // 子判断
-      let checkedCount = this.nowRes[val.me_id].length;
-      console.log(checkedCount);
-      console.log(this.res[val.me_id]);
-      console.log(this.nowRes[val.me_id]);
-      console.log(this.ifThis[val.me_id]);
-      this.ifThis[val.me_id] = checkedCount === this.res[val.me_id].length;
-      
-      console.log(this.ifThis[val.me_id]);
-
-      this.isIndeterminate2[val.me_id] = checkedCount > 0 && checkedCount < this.res[val.me_id].length;
-      console.log(this.isIndeterminate2[val.me_id]);
-
-      // 父级判断
-      let ifId = this.nowMenu.findIndex(item => item == val)
-      if (ifId == -1) {
-        if (this.ifThis[val.me_id] || this.isIndeterminate2[val.me_id])
-          this.nowMenu.push(val)
+    groupCheck (chi, par) {
+      // 子集全选
+      console.log(chi.isCheck);
+      if (this.allChildCheck(par.children)) {
+        par.isCheck = true
+        par.isHalf = false
       }
-      else {
-        if (!this.ifThis[val.me_id] && !this.isIndeterminate2[val.me_id])
-          this.nowMenu.splice(ifId, 1)
+      // 半选
+      else if (this.anyChildCheck(par.children)) {
+        par.isCheck = false
+        par.isHalf = true
       }
-      this.isIndeterminate1 = this.nowMenu.length > 0 && this.nowMenu.length < this.menu.length;
-      
+      // 子集全不选
+      else if (this.noChildCheck(par.children)) {
+        par.isCheck = false
+        par.isHalf = false
+        console.log('this----', par.isHalf);
+      }
+
+      console.log(par.isCheck, par.isHalf);
+
+      this.parentAll()
+
     },
-    resetFalse (val) {
-      Object.keys(val).forEach((key) => {
-        val[key] = false
-      })
-      // Object.keys(val).forEach((key) => {
-      //   val[key] = false
-      // })
+    // 判断全部
+    parentAll () {
+      // 父级全选
+      if (this.allChildCheck(this.dataList)) {
+        this.ifAll = true
+        this.isIndeterminate = false
+      }
+      // 父级半选
+      else if (this.dataList.some(item => item.isHalf === true) || this.dataList.some(item => item.isCheck === true)) {
+        this.ifAll = false
+        this.isIndeterminate = true
+      }
+      // 父集全不选
+      else if (this.noChildCheck(this.dataList)) {
+        this.ifAll = false
+        this.isIndeterminate = false
+      }
+
     },
-    resetTrue (val) {
-      Object.keys(val).forEach((key) => {
-        val[key] = true
-      })
-      // Object.keys(val).forEach((key) => {
-      //   val[key] = true
-      // })
+    // 判断子集是否都为选中
+    allChildCheck (arr) {
+      const ifTrue = arr.every(item => item.isCheck === true)
+      return ifTrue
     },
-    resetArr (val) {
-      Object.keys(val).forEach((key) => {
-        val[key] = []
-      })
-          }
+    // 判断子集是否都未选中
+    noChildCheck (arr) {
+      const ifTrue = arr.every(item => item.isCheck === false)
+      return ifTrue
+    },
+    // 判断是否为半选
+    anyChildCheck (arr) {
+      const ifTrue = arr.some(item => item.isCheck === true)
+      return ifTrue
+    }
   },
   computed: {
   },
@@ -162,18 +156,38 @@ console.log(this.nowMenu);
     menuPage().then(res => {
       this.menu = res.data.list
       console.log(this.menu);
+      this.menu.forEach(item => {
+        console.log(item);
+        this.dataList.push({
+          ...item,
+          isCheck: false,
+          isHalf: false
+        })
+      })
+      console.log(this.dataList);
     })
     resource().then(res => {
-      this.res = JSON.parse(JSON.stringify(res.data))
-      
-      this.ifThis = JSON.parse(JSON.stringify(res.data))
-      this.resetFalse(this.ifThis)
-      this.isIndeterminate2 = JSON.parse(JSON.stringify(res.data))
-      this.resetFalse(this.isIndeterminate2)
-      this.nowRes = JSON.parse(JSON.stringify(res.data))
-      this.resetArr(this.nowRes)
-      console.log(this.ifThis);
+      this.res = res.data
+      this.dataList = this.dataList.map(item => {
+        if (this.res[item.me_id]) {
+          const arr = this.res[item.me_id].map(k => {
+            return {
+              ...k,
+              isCheck: false
+            }
           })
+          return {
+            ...item,
+            children: arr
+          }
+        } else {
+          return {
+            ...item,
+            children: null
+          }
+        }
+      })
+    })
   }
 }
 </script>
