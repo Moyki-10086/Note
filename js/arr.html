@@ -9,16 +9,23 @@
 
 <body>
   <script>
-    // const s1 = new Set()
+    const s1 = new Set()
+    console.log(s1 instanceof Array);
     //   s1.add(3).add(4).add(5).add(6).add(7)
     //   console.log(s1.values());
     //   console.log(s1.keys());
     //   console.log(s1.entries());
     // console.log([...s1.entries()]);
 
-let a=[2,4,5,6,7,8]
-a.copyWithin(0,3)
-   console.log(a);
+// let a=[2,4,5,6,7,8]
+// a.copyWithin(0,3)
+//    console.log(a);
+
+function aa(a){
+  console.log(arguments);
+  console.log(arguments instanceof Array);
+}
+aa(1,2,3,4,5,4)
   </script>
 </body>
 
