@@ -95,3 +95,11 @@ axios.interceptors.response.use(
 一个用于配置Babel编译工具的文件。
 主要作用是将ECMAScript 2015+ 版本的代码，转换为向后兼容的JS语法，以便能够运行在当前和旧版本的浏览器或其它环境中。
 Vue项目中普遍使用ES6语法，若要求兼容低版本浏览器，就需要引入Babel，将ES6转换为ES5。
+
+### 网页调试
+- 定位到指定样式：ctrl+shift+c
+- setTimeout( () => { debugger; },2000 )
+
+### vue this
+除了.vue文件，都获取不到this,
+都需要导入，例如组件功能

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <a href="https://juejin.cn/post/6844904083707396109#heading-44">40道this面试题酸爽继续</a>
+  <script>
+    var name = 'window'
+    var person1 = {
+      name: 'person1',
+      foo1: function () {
+        console.log(this.name)
+      },
+      foo2: () => console.log(this.name),
+      foo3: function () {
+        return function () {
+          console.log(this.name)
+        }
+      },
+      foo4: function () {
+        return () => {
+          console.log(this.name)
+        }
+      }
+    }
+    var person2 = {
+      name: 'person2'
+    }
+    person1.foo1()//1
+    person1.foo1.call(person2)//2
+    person1.foo2()//w
+    person1.foo2.call(person2)//w
+    person1.foo3()()//w
+    person1.foo3.call(person2)()//w
+    person1.foo3().call(person2)//2
+    person1.foo4()()//1
+    person1.foo4.call(person2)()//2
+    person1.foo4().call(person2)//w------>1
+
+
+
+    function foo () {
+      console.log(this.a);
+    }
+    var a = 2;
+    (function () {
+      "use strict";//--------
+      console.log(this)
+      foo();//a
+    })();
+  </script>
+</body>
+
+</html>
