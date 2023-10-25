@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+      // [{blurry: 1},{name: 'John'}]
+      // 转----->
+      // {blurry: 1, name: 'John'}
+
+// 方法一：map
+  const abc = [{ blurry: 1 }, { name: 'John' }]
+  .map(item=>[item.name, item.value])
+  console.log(Object.fromEntries(abc))
+// 方法二：Object.assign
+console.log(Object.assign({},...[{ blurry: 1 }, { name: 'John' }]));
+// 方法三：reduce
+  const obj = [{ blurry: 1 }, { name: 'John' }].reduce((prev, curr) =>{
+   return { ...prev, [curr.name]: curr.value }
+  },{})
+  console.log(obj);
+  </script>
+</body>
+</html>

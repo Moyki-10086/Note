@@ -85,7 +85,7 @@ axios.interceptors.response.use(
 <img src="./img/bbb.png"/>
 
 ### 10. 设置count 文件夹
-管理常量，导出
+通过变量，管理常量函数名，导出变量
 
 ### 11.使用github在线vscode
 1. 将com改为dev
@@ -96,10 +96,27 @@ axios.interceptors.response.use(
 主要作用是将ECMAScript 2015+ 版本的代码，转换为向后兼容的JS语法，以便能够运行在当前和旧版本的浏览器或其它环境中。
 Vue项目中普遍使用ES6语法，若要求兼容低版本浏览器，就需要引入Babel，将ES6转换为ES5。
 
-### 网页调试
+### 13.网页调试
 - 定位到指定样式：ctrl+shift+c
 - setTimeout( () => { debugger; },2000 )
 
-### vue this
+### 14.vue this
 除了.vue文件，都获取不到this,
 都需要导入，例如组件功能
+
+### 15.项目页面业务
+每个页面只能完成一个功能，其他功能放到组件或其他页面
+
+### 16.事件方法获取触发事件元素
+用$event
+
+### 17.父子传值，可以传递函数，
+函数写在methods里，不写在数组里
+
+### 18.函数执行
+函数执行时，被放入执行栈，执行完释放，在执行栈中删除。  
+闭包不会被释放，因为被外部有引用。导致栈溢出，内存泄漏
+
+### 19客户端渲染和服务端渲染
+[图片](./img/ccc.png)
+<img src="./img/ccc.png"/>
