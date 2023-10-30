@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // MDN: ----------- 闭包
+    // 含义：  闭包是能够  从内部函数访问外部函数的作用域
+    //         外部函数作用域对内部函数有引用
+    //     函数执行时会放在执行栈上执行--执行完后，从执行栈上移除--堆上的作用域成员，被外部函数所引用--导致无法释放
+
+// 例子一：
+    function init(){
+      var name='aaa'
+      function sayName(){
+        console.log(name);//使用了外部函数中的声明变量
+      }
+      sayName()
+    }
+    init()
+
+// 例子二：
+function init2(name){
+  function sayName(){
+    console.log(name);
+  }
+  sayName()
+}
+init2('bbb')
+
+// 例子三：
+  function init3 () {
+      var name = 'ccc'
+    function sayName () {
+      console.log(name);
+    }
+    sayName()
+  }
+  const c=init3()
+  c()
+
+  </script>
+</body>
+</html>

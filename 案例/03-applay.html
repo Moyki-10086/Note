@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 函数 this 指向 -------- apply
+    // 函数中的 this 指向它的调用，不指向它的定义
+    function abc(){
+      console.log(this);
+    }
+    abc()// --------> this指向 window
+    // ----------->  apply、bind、call、arguments位于function abc 的原型上
+    console.dir(abc)
+
+
+    // 在所有函数对象的原型链上添加myApply函数
+    Function.prototype.myApply=function(thisObj,args){
+      // --------> this指向 function abc
+      console.log(this);
+      // --------> 存储当前函数（this ；abc） 保存到 原型对象（Object.prototype.runOuterMethod）上
+      Object.prototype.runOuterMethod=this
+      // --------> thisObj（改变的this） 调用了runOuterMethod ,在Object.prototype上存储了当前函数abc
+      thisObj.runOuterMethod(...args)//相当于对象thisObj调用了函数abc
+      // --------> thisObj的原型链上 有 runOuterMethod 指向 abc函数
+      console.log(thisObj);
+      // 删除原先用于存储this的中间值，防止影响其他属性或方法
+      delete Object.prototype.runOuterMethod
+    }
+    abc.myApply({ name: "abc" }, [1, 2, 3])// --------> this指向 function abc
+</script>
+</body>
+</html>

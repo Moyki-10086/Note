@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<button id="btn">按钮</button>
+
+<body>
+  <script>
+    // 防抖-----规定时间内打断触发
+    const btn = document.getElementById("btn");
+
+    function debounce (func, time, immediate) {
+      // 参数校验：
+      if (typeof func !== 'function') throw new Error("function is not a function")
+      if (typeof time == 'undefined') time = 500
+      if (typeof immediate == 'undefined') immediate = false
+      if (typeof time == 'boolean') {
+        immediate = time
+        time = 500
+      }
+      // 闭包---存储 定时器标识
+      let timer
+      return function (...args) {
+        console.log(this);//----->  指向调用--btn
+        // const that = this//----->  存储上下文，在这里不需要
+        // 如果存在计时器  ---  则 清除，以确保只有最后一次触发的函数会被执行
+        timer && clearTimeout(timer)
+        // 如果是immediate且定时器不存在  ---  则 立即执行函数func（click），并将that和参数args传递给它
+        immediate && !timer ? func.apply(this, args) : null
+        // immediate && !timer ? func.apply(that, args) : null
+        timer = setTimeout(() => {
+          timer = null
+          // 如果不是 immediate  ---  则 延迟执行函数func（click），并将that和参数args传递给它。
+          !immediate ? func.apply(this, args) : null
+          // !immediate ? func.apply(that, args) : null
+        }, time);
+      }
+    }
+    function click (e) {
+      console.log(123);
+      console.log(e);
+      console.log(this);
+    }
+    // btn.onclick = debounce(click,1000);      
+    btn.onclick = debounce(click, true);
+  </script>
+</body>
+
+</html>
