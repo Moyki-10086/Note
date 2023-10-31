@@ -13,3 +13,7 @@ console.log(obj);
 
 console.log(name2);
 sayName()
+
+setTimeout(() => {
+  console.log('text1-----change-----' + name)
+}, 2000)
