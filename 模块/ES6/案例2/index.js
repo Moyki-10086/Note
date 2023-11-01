@@ -2,8 +2,8 @@
 // 导入功能 import
 
 // 1. 导出变量
-// import  name  from './modules/text1.js'
-// import  aa  from './modules/text1.js'
+// import name from './modules/text1.js'
+// console.log(name);
 // 相当于--->
 // import { default as aa } from './modules/text1.js'
 
@@ -11,8 +11,10 @@
 // 2. 导出方法
 // 2.1
 // import sayName1 from './modules/text1.js'
+// sayName1()
 // 2.2
 // import aa from './modules/text1.js'
+// aa()
 // 默认导出成员赋值给了变量aa ,这里的aa可以被看作是一个别名，用于代替原本的sayName1函数名。
 // 相当于--->
 // import { default as aa } from './modules/text1.js'
@@ -23,22 +25,27 @@
 // import sayName1 from './modules/text1.js'
 // 相当于--->
 // import { default as sayName1 } from './modules/text1.js'
-
+// sayName1()
 
 // 4. 导出多个
 // 4.1
-// import aa from './modules/text1.js'
-// console.log(aa);
+import aa1 from './modules/text1.js'
+// { default as aa1 } 
+console.log(aa1);
 // console.log(aa.name)
 // aa.func()
 // 4.2
 import * as aa from './modules/text1.js'
 console.log(aa)
-console.log(aa.default)
-aa.default.func()
+// console.log(aa.default)
+// aa.default.func()
 
 
 // console.log(name);
 // console.log(aa);
 // sayName1()
 // aa()
+
+
+// import a from './modules/text1.js'
+// console.log(a);

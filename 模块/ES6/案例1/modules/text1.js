@@ -1,10 +1,10 @@
-// 导出模块功能 export 
+// 导出模块功能 export
 export let name = 'text1'
-console.log('text1-----' + name);
+// console.log('text1-----' + name);
 
 setTimeout(() => {
   name = 'change'
-  console.log('text1-----change-----' + name)
+  // console.log('text1-----change-----' + name)
 }, 1000);
 
 export const obj = {

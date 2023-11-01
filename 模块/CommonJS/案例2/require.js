@@ -1,5 +1,6 @@
-const myModule = require('./module1')
-console.log(myModule)
-var myModuleInstance = new myModule();
-myModuleInstance.hello(); // 'hello!'
-myModuleInstance.goodbye(); // 'goodbye!'
+const AA = require('./module1')
+console.log(require('./module1'))
+console.log(AA)
+var aa = new AA();
+aa.hello();
+aa.goodbye();

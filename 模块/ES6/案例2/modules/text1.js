@@ -17,9 +17,12 @@
 // }
 
 // 4. 导出多个
-// export default name = {
-//   aa:'aa'
-// }
+export default name = {
+  aa: 'aa',
+  fun: function () {
+    console.log('fun');
+  }
+}
 
 // export default {
 //   name: 'text1',
@@ -30,7 +33,6 @@
 //       console.log('text1----function')
 //   }
 // }
-
 // 注意：export default命令其实只是输出一个叫做default的变量，所以它后面不能跟变量声明语句。
 // 错误
 // export default var a = 1;
