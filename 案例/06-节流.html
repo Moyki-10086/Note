@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      height: 1000px;
+    }
+  </style>
+</head>
+
+<body>
+  <script>
+    /**
+     * 节流
+     * 在规定时间内触发
+    */
+    function myThrottle (func, time) {
+       // 参数校验：
+      if (typeof func !== 'function') throw new Error("function is not a function")
+      if (typeof time == 'undefined') time = 500
+      let previous = 0
+      let timer
+      return function(...args){
+        const that = this
+        const now = new Date()
+        const interval = time - (now - previous)
+        // 低频触发
+        if(interval <= 0){
+          func.call(that,...args)
+          previous = new Date()
+          clearTimeout(timer)
+          timer=null
+        }else if (!timer){
+          // 高频触发
+          timer = setTimeout(()=>{
+            timer=null
+            func.call(that, ...args)
+            previous = new Date()
+          },interval)
+        }
+      }
+    }
+    function scroll () {
+      console.log(123);
+    }
+    // document.onscroll = scroll;
+    document.onscroll = myThrottle(scroll, 1000);
+  </script>
+</body>
+
+</html>
