@@ -124,3 +124,176 @@ Vue项目中普遍使用ES6语法，若要求兼容低版本浏览器，就需�
 ### 20.提出问题 ---> 对应解决办法 ---> 实例例子
 
 ### 21.VueUse  函数库 
+多是vue3使用
+
+### 22.使用组件
+1. 可以将方法写在父组件,通过props传到子组件
+2. 可以传递多个props
+3. props可以是数据，可以是方法
+3. props可接收指定的参数类型
+4. props 可以设置默认值
+5. 传递props可以作为事件的参数
+6. 使用$emit触发父组件事件，传递值给父组件
+```js
+// 父组件
+    <CTree :propsData="propsData" :loadNode="loadNode" :data="data" :handleNodeClick="handleNodeClick" />
+// propsData、data ---> 是数据
+// loadNode、handleNodeClick ---> 是方法
+
+ propsData: [
+        {
+          id: 1,
+          name: '搜索-default',
+          handler: this.search
+        }, {
+          id: 2,
+          name: '重置-default',
+          handler: this.reset
+        }
+      ]
+
+add(){
+  this.$emit('handleNodeClick', this.data)
+}
+```
+```js
+// 子组件
+<el-tree :propsData="this.propsData" :load="this.loadNode" lazy :data="this.data" :auto-expand-parent="false" @node-click="handleNodeClick && handleNodeClick($event, data)"
+  @size-change="val => $emit('sizeChange', val)">
+</el-tree>
+
+ props: {
+    propsData: {
+      type: [Object,Array]
+    },
+    loadNode: {
+      type: Function
+    },
+    data: {
+      type: Array,
+      default: () => []
+    },
+    handleNodeClick: {
+      type: Function
+    }
+  }
+// type: Object,
+//   default: () => ({
+//      page: 0,
+//      size: 10
+//    })
+
+```
+### 23.使用 ？.
+```js
+getDept({ pid: node?.data?.id })
+```
+node?.data?.id：这是一个链式调用，用于获取一个对象中的属性值。首先，它会检查node对象是否存在，如果存在则继续访问data属性，再继续访问id属性。如果任何一个属性不存在，整个链式调用会返回undefined。
+
+### 24.使用 && 
+```js
+getDept(this.name && { name: this.name })
+```
+属性值是this.name的值（如果this.name存在），否则属性值为undefined。
+
+### 25.使用vuex导入数据和方法
+1. state、geter、mapState 导入 computed
+```js
+ computed: {
+    ...mapState('user', ['deptId', 'deptOptions'])
+  },
+```
+2. mutations、actions、mapMutations 导入 methods
+```js
+ methods: {
+    ...mapMutations('user', ['UPDATE_DEPTID']),
+    // ...mapMutations('user', [UPDATE_DEPTID]),
+    handleNodeClick (data) {
+      console.log(data)
+      this.UPDATE_DEPTID(data.id)
+      // this[UPDATE_DEPTID](data.id)
+    }
+```
+### 26.多个相似内容
+多个相似组件、可以用循环，某个不同可以用if判断挑出来
+
+### 27.每个页面
+每个页面只允许一个功能，其余用组件拆分，若一个页面拆分多个部分（非最终组件），可将内容设置为一个文件夹中（index代表此页面，其余代表分出的部分），最终组件可单独放入一个文件夹（为index）
+
+### 28.axios
+axios 封装时，参数 除get为params 其余均为data
+
+### 29.父子传值时，参数与显示内容不匹配
+可以在传入参数使用自定方法，返回指定内容
+```js
+父
+ data: [
+        {
+            prop: 'gender',
+            label: '性别',
+            filter: (row) => {
+              return row.gender ? '男' : '女'
+            }
+          }
+]
+子
+   <span v-if="!item.type">{{ item.filter? item.filter(scope.row):scope.row[item.prop] }}</span>
+```
+### 30.若接口参数为多个组件的值时
+可以使用扩展运算符展开，若不需要某个参数，将参数设为空对象即可
+```js
+// 默认全部参数写入
+ getData () {
+      const params = {
+        sort: 'id,desc',
+        ...this.searchParams,
+        ...this.pages,
+        page: this.pages.page - 1,
+        deptId: this.searchDeptId
+      }
+      getUsers(params).then(res => { })
+    }
+// 使用时更改数据
+   btnClick (item) {
+      this.pages.page = 1
+      this.searchParams = item
+      this.getData()
+    },
+```
+### 31.父子通信直接使用子组件方法 ref
+```js
+// 父组件
+    <CDialog  ref="userInfo" @update:visible="btnClick"/>
+
+// 使用子组件方法
+iconEditor (event, row) {
+      console.log('编辑数据', row)
+      this.$refs.userInfo.isShow(true, row)
+    },
+```
+```js
+// 子组件
+isShow (isEdit, data) {
+
+}
+```
+### 32.注意使用methods时
+如果在 if 下 更新页面显示数据，可能会造成 false的情况下数据仍然显示。
+原因dom未更新时，数据就被复制了，所以应等dom渲染完后，再去判断if
+在if 前 使用 ** await this.$nextTick()** 可等待dom渲染（nextTick ---> 数据更新时获取dom）
+
+### 33.使用表格显示数据时，注意
+1. 对应的v-model是否为父组件传递的内容的下级
+2. 确定使用对应传递的propo 在后台数据中的位置
+3. 获取如Switch 时，对应的父组件传的内容
+```js
+// 表头
+<el-form-item label="部门" prop="dept.id">
+            <treeselect v-model="formData.dept.id" :options="optionDept" placeholder="请选择部门"
+              :load-options="loadOptions" />
+          </el-form-item>
+// tablebody
+          <el-switch v-model="scope.row[item.prop]" @change="item.handler(scope.row)"></el-switch>
+
+```
+
