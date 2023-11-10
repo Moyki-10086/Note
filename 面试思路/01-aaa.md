@@ -124,3 +124,199 @@ Vue项目中普遍使用ES6语法，若要求兼容低版本浏览器，就需�
 ### 20.提出问题 ---> 对应解决办法 ---> 实例例子
 
 ### 21.VueUse  函数库 
+多是vue3使用
+
+### 22.使用组件
+1. 可以将方法写在父组件,通过props传到子组件
+2. 可以传递多个props
+3. props可以是数据，可以是方法
+3. props可接收指定的参数类型
+4. props 可以设置默认值
+5. 传递props可以作为事件的参数
+6. 使用$emit触发父组件事件，传递值给父组件
+```js
+// 父组件
+    <CTree :propsData="propsData" :loadNode="loadNode" :data="data" :handleNodeClick="handleNodeClick" />
+// propsData、data ---> 是数据
+// loadNode、handleNodeClick ---> 是方法
+
+ propsData: [
+        {
+          id: 1,
+          name: '搜索-default',
+          handler: this.search
+        }, {
+          id: 2,
+          name: '重置-default',
+          handler: this.reset
+        }
+      ]
+
+add(){
+  this.$emit('handleNodeClick', this.data)
+}
+```
+```js
+// 子组件
+<el-tree :propsData="this.propsData" :load="this.loadNode" lazy :data="this.data" :auto-expand-parent="false" @node-click="handleNodeClick && handleNodeClick($event, data)"
+  @size-change="val => $emit('sizeChange', val)">
+</el-tree>
+
+ props: {
+    propsData: {
+      type: [Object,Array]
+    },
+    loadNode: {
+      type: Function
+    },
+    data: {
+      type: Array,
+      default: () => []
+    },
+    handleNodeClick: {
+      type: Function
+    }
+  }
+// type: Object,
+//   default: () => ({
+//      page: 0,
+//      size: 10
+//    })
+
+```
+### 23.使用 ？.
+```js
+getDept({ pid: node?.data?.id })
+```
+node?.data?.id：这是一个链式调用，用于获取一个对象中的属性值。首先，它会检查node对象是否存在，如果存在则继续访问data属性，再继续访问id属性。如果任何一个属性不存在，整个链式调用会返回undefined。
+
+### 24.使用 && 
+```js
+getDept(this.name && { name: this.name })
+```
+属性值是this.name的值（如果this.name存在），否则属性值为undefined。
+
+### 25.使用vuex导入数据和方法
+1. state、geter、mapState 导入 computed
+```js
+ computed: {
+    ...mapState('user', ['deptId', 'deptOptions'])
+  },
+```
+2. mutations、actions、mapMutations 导入 methods
+```js
+ methods: {
+    ...mapMutations('user', ['UPDATE_DEPTID']),
+    // ...mapMutations('user', [UPDATE_DEPTID]),
+    handleNodeClick (data) {
+      console.log(data)
+      this.UPDATE_DEPTID(data.id)
+      // this[UPDATE_DEPTID](data.id)
+    }
+```
+### 26.多个相似内容
+多个相似组件、可以用循环，某个不同可以用if判断挑出来
+
+### 27.每个页面
+每个页面只允许一个功能，其余用组件拆分，若一个页面拆分多个部分（非最终组件），可将内容设置为一个文件夹中（index代表此页面，其余代表分出的部分），最终组件可单独放入一个文件夹（为index）
+
+### 28.axios
+axios 封装时，参数 除get为params 其余均为data
+
+### 29.父子传值时，参数与显示内容不匹配
+可以在传入参数使用自定方法，返回指定内容
+```js
+父
+ data: [
+        {
+            prop: 'gender',
+            label: '性别',
+            filter: (row) => {
+              return row.gender ? '男' : '女'
+            }
+          }
+]
+子
+   <span v-if="!item.type">{{ item.filter? item.filter(scope.row):scope.row[item.prop] }}</span>
+```
+### 30.若接口参数为多个组件的值时
+可以使用扩展运算符展开，若不需要某个参数，将参数设为空对象即可
+```js
+// 默认全部参数写入
+ getData () {
+      const params = {
+        sort: 'id,desc',
+        ...this.searchParams,
+        ...this.pages,
+        page: this.pages.page - 1,
+        deptId: this.searchDeptId
+      }
+      getUsers(params).then(res => { })
+    }
+// 使用时更改数据
+   btnClick (item) {
+      this.pages.page = 1
+      this.searchParams = item
+      this.getData()
+    },
+```
+### 31.父子通信直接使用子组件方法 ref
+```js
+// 父组件
+    <CDialog  ref="userInfo" @update:visible="btnClick"/>
+
+// 使用子组件方法
+iconEditor (event, row) {
+      console.log('编辑数据', row)
+      this.$refs.userInfo.isShow(true, row)
+    },
+```
+```js
+// 子组件
+isShow (isEdit, data) {
+
+}
+```
+### 32.注意使用methods时
+如果在 if 下 更新页面显示数据，可能会造成 false的情况下数据仍然显示。
+原因dom未更新时，数据就被复制了，所以应等dom渲染完后，再去判断if
+在if 前 使用 ** await this.$nextTick()** 可等待dom渲染（nextTick ---> 数据更新时获取dom）
+
+### 33.使用表格显示数据时，注意
+1. 对应的v-model是否为父组件传递的内容的下级
+2. 确定使用对应传递的propo 在后台数据中的位置
+3. 获取如Switch 时，对应的父组件传的内容
+```js
+// 表头
+<el-form-item label="部门" prop="dept.id">
+            <treeselect v-model="formData.dept.id" :options="optionDept" placeholder="请选择部门"
+              :load-options="loadOptions" />
+          </el-form-item>
+// tablebody
+          <el-switch v-model="scope.row[item.prop]" @change="item.handler(scope.row)"></el-switch>
+
+```
+
+### 34.单点登录
+单点登录英文全称Single Sign On，简称就是SSO。它的解释是：在多个应用系统中，只需要登录一次，就可以访问其他相互信任的应用系统。
+单点登录，资源都在各个业务系统这边，不在SSO那一方。 用户在给SSO服务器提供了用户名密码后，作为业务系统并不知道这件事。 SSO随便给业务系统一个ST，那么业务系统是不能确定这个ST是用户伪造的，还是真的有效，所以要拿着这个ST去SSO服务器再问一下，这个用户给我的ST是否有效，是有效的我才能让这个用户访问。
+1. 不同域下的单点登录
+ - CAS官网上的标准流程，具体流程如下：
+ 1. 用户访问app系统，app系统是需要登录的，但用户现在没有登录。
+ 2. 跳转到CAS server，即SSO登录系统。 SSO系统也没有登录，弹出用户登录页。
+ 3. 用户填写用户名、密码，SSO系统进行认证后，将登录状态写入SSO的session，浏览器（Browser）中写入SSO域下的Cookie。
+ 4. SSO系统登录完成后会生成一个ST（Service Ticket），然后跳转到app系统，同时将ST作为参数传递给app系统。
+ 5. app系统拿到ST后，从后台向SSO发送请求，验证ST是否有效。
+ 6. 验证通过后，app系统将登录状态写入session并设置app域下的Cookie。
+ - 至此，跨域单点登录就完成了。以后我们再访问app系统时，app就是登录的。接下来，我们再看看访问app2系统时的流程。
+ 1. 用户访问app2系统，app2系统没有登录，跳转到SSO。
+ 2. 由于SSO已经登录了，不需要重新登录认证。
+ 3. SSO生成ST，浏览器跳转到app2系统，并将ST作为参数传递给app2。
+ 4. app2拿到ST，后台访问SSO，验证ST是否有效。
+ 5. 验证成功后，app2将登录状态写入session，并在app2域下写入Cookie。
+ - 这样，app2系统不需要走登录流程，就已经是登录了。SSO，app和app2在不同的域，它们之间的session不共享也是没问题的。
+2. 同域下的单点登录
+   - cookie
+     sso登录以后，可以将Cookie的域设置为顶域，即.a.com，这样所有子域的系统都可以访问到顶域的Cookie。我们在设置Cookie时，只能设置顶域和自己的域，不能设置其他的域。比如：我们不能在自己的系统中给baidu.com的域设置Cookie。
+   - session
+   我们在sso系统登录了，这时再访问app1，Cookie也带到了app1的服务端（Server），app1的服务端怎么找到这个Cookie对应的Session呢？这里就要把3个系统的Session共享，共享Session的解决方案有很多，例如：Spring-Session。
